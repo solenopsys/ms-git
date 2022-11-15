@@ -1,0 +1,33 @@
+replicasCount: 1
+fullName: "alexstorm-git-wrapper"
+selectorLabel: "alexstorm-git-wrapper"
+
+service:
+  port: 8080
+  zmqPort: 9999
+
+storages:
+  git:
+    volumeName: git-volume
+    volumeClimeName: git-pvc
+    storageSize: 1Gi
+    accessModes: "ReadWriteOnce"
+    hostPath: "/opt/git-volume"
+    storageClass: "local-path"
+  temp:
+    volumeName: tmp
+    storageSize: 512Mi
+
+
+containers:
+  git_api:
+    name: alexstorm-git-api
+    image: registry.alexstorm.solenopsys.org/alexstorm-git-api:latest
+    pullPolicy: Always
+    secret: alexstorm-git-wrapper-password
+  git_http:
+    name: alexstorm-git-http
+    image: registry.alexstorm.solenopsys.org/alexstorm-git-http:latest
+    pullPolicy: Always
+
+

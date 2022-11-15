@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: {{ .Values.storages.git.volumeClimeName }}
+spec:
+  storageClassName: {{ .Values.storages.git.storageClass }}
+  accessModes:
+    - {{ .Values.storages.git.accessModes }}
+  resources:
+    requests:
+      storage: {{ .Values.storages.git.storageSize }}
+  volumeName: {{ .Values.storages.git.volumeName }}
+
+
+
+

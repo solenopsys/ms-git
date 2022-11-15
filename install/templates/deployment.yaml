@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name:  {{ .Values.fullName }}
+spec:
+  serviceName: {{ .Values.fullName }}
+  replicas:  {{ .Values.replicasCount }}
+  selector:
+      matchLabels:
+        app: {{ .Values.selectorLabel }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.fullName}}
+        type: hStreamNode
+        hsServiceName: {{ .Values.fullName}}
+    spec:
+      containers:
+      - name: {{ .Values.containers.git_api.name}}
+        image: {{ .Values.containers.git_api.image }}
+        imagePullPolicy: {{ .Values.containers.git_api.pullPolicy}}
+        ports:
+        - containerPort: {{ .Values.service.zmqPort }}
+        env:
+        - name: "zmq.SocketUrl"
+          value: "tcp://*:{{ .Values.service.zmqPort }}"
+        - name: "git.RootDir"
+          value: "/git-root"
+        volumeMounts:
+        - name: {{ .Values.storages.git.volumeName }}
+          mountPath: /git-root
+      - name: {{ .Values.containers.git_http.name }}
+        image: {{ .Values.containers.git_http.image }}
+        imagePullPolicy: {{ .Values.containers.git_http.pullPolicy}}
+        ports:
+          - containerPort: {{ .Values.service.port }}
+        volumeMounts:
+          - name: {{ .Values.storages.git.volumeName }}
+            mountPath: /home/git
+          - name: bpassword
+            mountPath: "/home/htpasswd"
+            readOnly: true
+      volumes:
+        - name: {{ .Values.storages.git.volumeName }}
+          persistentVolumeClaim:
+            claimName: {{ .Values.storages.git.volumeClimeName }}
+        - name: bpassword
+          secret:
+            secretName: {{ .Values.containers.git_api.secret }}
+  updateStrategy:
+    type: RollingUpdate
