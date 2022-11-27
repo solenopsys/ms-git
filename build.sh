@@ -15,7 +15,7 @@ helm_build_push(){
 REGISTRY=registry.alexstorm.solenopsys.org
 NAME=alexstorm-git-wrapper
 ARCHS="linux/amd64,linux/arm64"
-VER=0.1.21
+VER=0.1.22
 
 build_push
 helm_build_push

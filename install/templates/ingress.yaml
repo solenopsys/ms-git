@@ -16,7 +16,7 @@ spec:
   tls:
     - hosts:
         - git.alexstorm.solenopsys.org
-      secretName: prod-as-tls
+      secretName: git-secret
   rules:
     - host: git.alexstorm.solenopsys.org
       http:
