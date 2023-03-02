@@ -3,6 +3,6 @@ name: alexstorm-git-wrapper
 version: 0.1.16
 description: Git data service
 icon: "http://alexstorm.solenopsys.org/apps/assets/git.svg"
-
+appVersion: 1.0.0
 
 
