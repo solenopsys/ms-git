@@ -22,12 +22,12 @@ storages:
 containers:
   git_api:
     name: alexstorm-git-api
-    image: registry.klogsolenopsys.org/alexstorm-git-api:latest
+    image: registry.solenopsys.org/alexstorm-git-api:latest
     pullPolicy: Always
     secret: alexstorm-git-wrapper-password
   git_http:
     name: alexstorm-git-http
-    image: registry.klogsolenopsys.org/alexstorm-git-http:latest
+    image: registry.solenopsys.org/alexstorm-git-http:latest
     pullPolicy: Always
 
 

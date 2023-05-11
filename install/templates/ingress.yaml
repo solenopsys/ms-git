@@ -14,10 +14,10 @@ metadata:
 spec:
   tls:
     - hosts:
-        - git.klogsolenopsys.org
+        - git.solenopsys.org
       secretName: git-secret
   rules:
-    - host: git.klogsolenopsys.org
+    - host: git.solenopsys.org
       http:
         paths:
           - path: /
